@@ -1,0 +1,55 @@
+<span name="citySearchAndDisplay">
+  <span name="citySearch">
+    <form #citySearch="ngForm" name="citySearch" (ngSubmit)="getCityList(citySearch.value)" >
+      <input name="cityToSearch" type="text" placeholder="Anywhere, Planet Earth" ngModel />
+      <input name="citySearchSubmit" value="submit" type="submit" />
+    </form>
+  </span>
+
+  <span name="cityDisplay" *ngIf="CityList">
+      <table name="cityListTable">
+        <thead>
+          <tr>
+            <th>City, State, Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let city of CityList">
+            <td (click)="displayForecast(city)">{{city.EnglishName}}, {{city.AdministrativeArea.EnglishName}}, {{city.Country.EnglishName}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </span>
+</span>
+<button (click)="testShit()">TEST</button>
+<br>
+  <span name="forecastDisplay" *ngIf="ThreeDayForecast">
+    <h3>Three Day Forecast for {{City.LocalizedName}}, {{City.AdministrativeArea.EnglishName}}, {{City.Country.EnglishName}}</h3>
+    <hr>
+    <span name="dailyForecasts" *ngFor="let day of ThreeDayForecast">
+      <!-- new table for each day. display date, high/low, chance of precipitation -->
+      <table name="oneDayForecast">
+        <thead>
+          <tr>
+            <th>{{day.date | date:'longDate'}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>High: {{day.Temperature.Maximum.Value}} &#8457;</td>
+          </tr>
+          <tr>
+            <td>Low: {{day.Temperature.Minimum.Value}} &#8457;</td>
+          </tr>
+          <tr>
+            <td>Daytime: {{day.Day.IconPhrase}}</td>
+          </tr>
+          <tr>
+            <td>Nighttime: {{day.Night.IconPhrase}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+    </span>
+  </span>
+
