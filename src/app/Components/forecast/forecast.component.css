@@ -1,0 +1,49 @@
+button, input[type=submit]  {
+  border-radius: 6px;
+  border: 1px solid darkblue;
+}
+
+input[type=text] {
+  border-radius: 6px;
+}
+
+.forecastDisplay {
+  width: auto;
+  height: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.oneDayForecastMain div {
+  text-align: center;
+}
+
+.forecastDisplay div {
+  align-items: center;
+}
+
+div.cityDisplay {
+  width: 200px;
+  height: 220px;
+  overflow: scroll;
+}
+
+#dailyForecasts {
+  float: left;
+  display: flex;
+  margin: 5px;
+  border-radius: 10px;
+  width: 200px;
+  height: 220px;
+  background: black;
+  background: linear-gradient(180deg, black, darkblue);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+#chosenCity:hover {
+  background-color: darkblue;
+  color: white;
+}

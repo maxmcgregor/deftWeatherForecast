@@ -1,55 +1,58 @@
-<span name="citySearchAndDisplay">
-  <span name="citySearch">
-    <form #citySearch="ngForm" name="citySearch" (ngSubmit)="getCityList(citySearch.value)" >
-      <input name="cityToSearch" type="text" placeholder="Anywhere, Planet Earth" ngModel />
-      <input name="citySearchSubmit" value="submit" type="submit" />
-    </form>
-  </span>
+<div id="header">
+  <h1 style="text-align: center; margin: 20spx;">Welcome to the Three Day Forecast Site</h1>
 
-  <span name="cityDisplay" *ngIf="CityList">
-      <table name="cityListTable">
-        <thead>
-          <tr>
-            <th>City, State, Country</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let city of CityList">
-            <td (click)="displayForecast(city)">{{city.EnglishName}}, {{city.AdministrativeArea.EnglishName}}, {{city.Country.EnglishName}}</td>
-          </tr>
-        </tbody>
-      </table>
-  </span>
-</span>
-<button (click)="testShit()">TEST</button>
-<br>
-  <span name="forecastDisplay" *ngIf="ThreeDayForecast">
-    <h3>Three Day Forecast for {{City.LocalizedName}}, {{City.AdministrativeArea.EnglishName}}, {{City.Country.EnglishName}}</h3>
-    <hr>
-    <span name="dailyForecasts" *ngFor="let day of ThreeDayForecast">
-      <!-- new table for each day. display date, high/low, chance of precipitation -->
-      <table name="oneDayForecast">
-        <thead>
-          <tr>
-            <th>{{day.date | date:'longDate'}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>High: {{day.Temperature.Maximum.Value}} &#8457;</td>
-          </tr>
-          <tr>
-            <td>Low: {{day.Temperature.Minimum.Value}} &#8457;</td>
-          </tr>
-          <tr>
-            <td>Daytime: {{day.Day.IconPhrase}}</td>
-          </tr>
-          <tr>
-            <td>Nighttime: {{day.Night.IconPhrase}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <hr>
-    </span>
-  </span>
+  <div name="citySearchAndInstructions">
+
+    <form #citySearch="ngForm" name="citySearch" class="citySearchAndDisplay" (ngSubmit)="getCityList(citySearch.value)" style="display: inline-block;">
+      <input name="cityToSearch" class="citySearchAndDisplay" type="text" placeholder="Anywhere, Planet Earth" ngModel />
+      <input name="citySearchSubmit" class="citySearchAndDisplay" value="submit" type="submit" style="margin-left: 3px;"/>
+    </form>
+
+    <button *ngIf="!needInstructions && !ThreeDayForecast" (click)="flipNeedInstructions()" style="margin-left: 60%; width: 150px;">Show Instructions</button>
+    <button *ngIf="needInstructions" (click)="flipNeedInstructions()" style="margin-left: 40%; width: 150px;">Hide Instructions</button>
+    <ol *ngIf="needInstructions" style="margin-right: 25px; float: right; text-align: left; width: 200px;">
+      <li>Search the name of the city whose weather you want to look up.</li>
+      <li>Click the city from the resulting list to see the three day forecast.</li>
+    </ol>
+  </div>
+</div>
+
+<div name="citySearchAndDisplay" class="citySearchAndDisplay" id="citySearchAndDisplay" style="margin: 10px;">
+  <div name="cityDisplay" class="cityDisplay" *ngIf="CityList">
+    <div *ngIf="CityList.length > 0">
+    <h5>City, State, Country</h5>
+      <ul name="cityListTable" class="cityDisplay">
+          <li *ngFor="let city of CityList" (click)="displayForecast(city)" id="chosenCity">{{city.EnglishName}}, {{city.AdministrativeArea.EnglishName}}, {{city.Country.EnglishName}}</li>
+      </ul>
+    </div>
+    <div *ngIf="CityList.length == 0">
+      <h5>Oh no! We couldn't find any city with that name :(</h5>
+      <h6>Search again!</h6>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="outOfCitySearchCalls || outOfForecastCalls">
+  <h3>This broke programmer couldn't afford to pay for more than 50 API calls/day :(</h3>
+  <h4>Go outside to check your weather today!</h4>
+  <h5>Come back tomorrow to check the weather somewhere else :)</h5>
+</div>
+
+
+<div *ngIf="ThreeDayForecast">
+<hr>
+<h3 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">Three Day Forecast for {{City.LocalizedName}}, {{City.AdministrativeArea.EnglishName}}, {{City.Country.EnglishName}}</h3>
+<hr>
+</div>
+<div name="forecastDisplay" class="forecastDisplay" *ngIf="ThreeDayForecast">
+    <div name="dailyForecasts" id="dailyForecasts" class="forecastDisplay" *ngFor="let day of ThreeDayForecast">
+      <div class="oneDayForecastMain">
+        <div class="oneDayForecastRow" style="font-size: 24px; margin-top: 5px">{{day.date | date:'longDate'}}</div>
+        <div class="oneDayForecastRow" style="font-size: 18px; margin-top: 10px;">High: {{day.Temperature.Maximum.Value}} &#8457;</div>
+        <div class="oneDayForecastRow" style="font-size: 18px;">Low: {{day.Temperature.Minimum.Value}} &#8457;</div>
+        <div class="oneDayForecastRow" style="font-size: 15px; margin-top: 10px">{{day.Day.IconPhrase}} in the daytime</div>
+        <div class="oneDayForecastRow" style="font-size: 15px;">{{day.Night.IconPhrase}} at nighttime</div>
+      </div>
+    </div>
+  </div>
 

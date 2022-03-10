@@ -14,6 +14,9 @@ export class ForecastComponent implements OnInit {
   CityList: any;
   CityKey: any;
   City: any;
+  needInstructions: boolean = false;
+  outOfCitySearchCalls: boolean = false;
+  outOfForecastCalls: boolean = false;
 
   constructor(
     private cityService: CityService,
@@ -23,19 +26,8 @@ export class ForecastComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  testShit() {
-    console.log("testShit this.CityList");
-    console.log(this.CityList);
-    console.log("testShit this.ForecastData");
-    console.log(this.ForecastData);
-    console.log("testShit this.ForecastData.DailyForecasts");
-    console.log(this.ForecastData.DailyForecasts);
-    console.log("testShit this.ForecastData.DailyForecasts[0]");
-    console.log(this.ForecastData.DailyForecasts[0]);
-    console.log("City: ");
-    console.log(this.City);
-    console.log("this.ThreeDayForecast: ");
-    console.log(this.ThreeDayForecast);
+  flipNeedInstructions() {
+    this.needInstructions = !this.needInstructions;
   }
 
   displayForecast(city: any) {
@@ -64,10 +56,11 @@ export class ForecastComponent implements OnInit {
       next: (cities) => {
         this.CityList = cities;
         this.ThreeDayForecast = null;
+        this.outOfCitySearchCalls = false;
       },
       error: (fail) => {
         console.error("ERROR RETRIEVING CITIES" + fail);
-        //put trigger here to display error to user that city search didn't work
+        this.outOfCitySearchCalls = true;
       }
     })
   }
@@ -78,10 +71,11 @@ export class ForecastComponent implements OnInit {
         this.ForecastData = forecast;
         this.setThreeDayForecast();
         this.CityList = null;
+        this.outOfForecastCalls = false;
       },
       error: (fail) => {
         console.error("ERROR RETRIEVING FORECAST" + fail);
-        //put trigger here to display error to user that forecast retrieval didn't work
+        this.outOfForecastCalls = true
       }
     })
   }
