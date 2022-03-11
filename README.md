@@ -5,11 +5,15 @@
   * The application succesfully utilizes AccuWeather APIs
 
 ## How to Access
-  The program can be accessed [by clicking this link](http://deftweatherapp-maxm.s3-website-us-east-1.amazonaws.com/).
+  * [Follow this Gitpod.io link](https://gitpod.io/#https://github.com/maxmcgregor/deftWeatherForecast.git) to run the Angular application directly from Github.
+  * Click "Login with GitHub & launch workspace" to log in to your GitHub account.
+  * The Terminal will automatically serve the application. When completed, click Open Browser to access the application.
+  ![image](https://user-images.githubusercontent.com/89482750/157788209-649e7328-1033-49f9-b80d-9eaba3df9e94.png)
+  
 
 ## Tech Overview
-  * [Angular] (https://angular.io/)
-  * [AccuWeather APIs] (https://developer.accuweather.com/)
+  * [Angular](https://angular.io/)
+  * [AccuWeather APIs](https://developer.accuweather.com/)
 
 ## Roadblocks/Limitations
   * I am using AccuWeather's free tier which only allows for 50 API calls per day, so after 50 searches in a day, the application won't work until tomorrow.
